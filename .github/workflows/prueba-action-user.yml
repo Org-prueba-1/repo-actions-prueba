@@ -2,7 +2,7 @@ name: Get users data
 
 on:
   workflow_dispatch:
-  
+
 env: 
   gh_token: ${{ secrets.TOKEN }} 
   GH_LOGINS: ${{ vars.GH_LOGINS }}

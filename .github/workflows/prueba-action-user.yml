@@ -2,7 +2,6 @@ name: Get users data
 
 on:
   workflow_dispatch:
-      
   
 env: 
   gh_token: ${{ secrets.TOKEN }} 
@@ -16,7 +15,7 @@ jobs:
     steps:
       - name: script
         run: |
-          GH_TOKEN="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"   
+          GH_TOKEN="${{ secrets.TOKEN }}"   
 
           function get_users_from_page() {
             page=$1
@@ -41,11 +40,9 @@ jobs:
             get_users_from_page $page
           done
 
-
           echo "[" > "$OUTPUT_FILE"
           for username in ${all_users[*]}
           do
-
             username=$(echo "$username" | tr '[:upper:]' '[:lower:]')
             echo "obteniendo datos del usuario: $username"
             datos=$(curl -L -s -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $GH_TOKEN" -H "X-GitHub-Api-Version: 2022-11-28" "https://api.github.com/users/$username")
@@ -53,10 +50,10 @@ jobs:
           done
           sed -i '$ s/.$//' "$OUTPUT_FILE"
           echo "]" >> "$OUTPUT_FILE"
-          
+
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
           name: datos_usuarios_${{ github.run_number }}
           path: ${{ env.OUTPUT_FILE }}
-      
+

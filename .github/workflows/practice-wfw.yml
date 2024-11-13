@@ -1,7 +1,7 @@
 name: Daily Workflow
 on:
   schedule:
-    - cron: '*/15 * * * *'
+    - cron: '* * * * *'
 
 jobs:
   my_job:

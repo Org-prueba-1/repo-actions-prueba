@@ -1,13 +1,11 @@
 name: Daily Workflow
 on:
-  schedule:
+  workflow_dispatch:
    # - cron: '* * * * *'
 
 jobs:
-  my_job:
-    runs-on: ubuntu-latest
+  runner-pruebas-script:
+    runs-on: self-hosted
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Run a script
-        run: action-prueba.yml
+      - name: Prueba runner
+        run: echo "------------------el runner esta configurado correctamente---------------"

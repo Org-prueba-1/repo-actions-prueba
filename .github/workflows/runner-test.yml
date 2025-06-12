@@ -1,4 +1,4 @@
-name: Daily Workflow
+name: Workflow test Runner Self-Hosted
 on:
   workflow_dispatch:
    # - cron: '* * * * *'

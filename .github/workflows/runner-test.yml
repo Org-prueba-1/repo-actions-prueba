@@ -24,7 +24,7 @@ jobs:
 
       - name: Run SonarQube scan
         run: |
-          gradle sonarqube \
-            -Dsonar.projectKey=mi_proyecto \
-            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+          ./gradlew sonar \
+          -Dsonar.projectKey=demo-java-app \
+          -Dsonar.host.url=http://localhost:9000 \
+          -Dsonar.login=sqp_d7750ab754aaab1869b0c15a6f1364094bd98c74

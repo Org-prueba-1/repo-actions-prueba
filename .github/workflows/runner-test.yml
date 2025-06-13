@@ -7,24 +7,29 @@ on:
 
 jobs:
   sonar:
-    runs-on: [self-hosted]
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
+          distribution: temurin
           java-version: 17
 
-      - name: Install Gradle
-        uses: gradle/gradle-build-action@v3
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v2
+        with:
+          gradle-version: '7.6'  # o la versión que quieras
 
       - name: Run SonarQube scan
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         run: |
-          ./gradlew sonar \
-          -Dsonar.projectKey=demo-java-app \
-          -Dsonar.host.url=http://localhost:9000 \
-          -Dsonar.login=sqp_d7750ab754aaab1869b0c15a6f1364094bd98c74
+          gradle sonarqube \
+            -Dsonar.projectKey=mi_proyecto \
+            -Dsonar.host.url=$SONAR_HOST_URL \
+            -Dsonar.login=$SONAR_TOKEN

@@ -25,7 +25,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         run: |
-          ./gradlew sonar \
+          gradle sonarqube \
             -Dsonar.projectKey=demo-java-app \
-            -Dsonar.host.url=http://localhost:9000 \
-            -Dsonar.login=sqp_d7750ab754aaab1869b0c15a6f1364094bd98c74
+            -Dsonar.host.url=$SONAR_HOST_URL \
+            -Dsonar.login=$SONAR_TOKEN

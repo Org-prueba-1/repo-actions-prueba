@@ -20,6 +20,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y gradle
 
+      - name: Check SonarQube server connectivity
+        run: curl -v $SONAR_HOST_URL/api/system/status || true
+
+
       - name: Run SonarQube
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

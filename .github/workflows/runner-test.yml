@@ -1,9 +1,7 @@
 name: SonarQube Analysis
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   sonar:

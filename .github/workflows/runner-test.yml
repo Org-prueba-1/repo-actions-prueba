@@ -1,11 +1,37 @@
-name: Workflow test Runner Self-Hosted
+name: Sonar Scan
+
 on:
-  workflow_dispatch:
-   # - cron: '* * * * *'
+  push:
+    branches: [ main ]
 
 jobs:
-  runner-pruebas-script:
-    runs-on: self-hosted
+  sonar:
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Prueba runner
-        run: echo "------------------el runner esta configurado correctamente---------------"
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 17
+
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Install Sonar Scanner
+        run: |
+          wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+          unzip sonar-scanner-cli-5.0.1.3006-linux.zip
+          sudo mv sonar-scanner-5.0.1.3006-linux /opt/sonar-scanner
+          echo "/opt/sonar-scanner/bin" >> $GITHUB_PATH
+
+      - name: Run SonarScanner
+        run: |
+          sonar-scanner

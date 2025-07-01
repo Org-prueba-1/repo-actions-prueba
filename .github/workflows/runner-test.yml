@@ -20,7 +20,7 @@ jobs:
   job-a:
     needs: [job-b, job-c]
     runs-on: ubuntu-latest
-    if: always() && needs.job-b.result != 'failure' && needs.job-b.result != 'cancelled' && needs.job-c.result != 'failure' && needs.job-c.result != 'cancelled'
+    if: always() && !contains(['failure','cancelled'], needs.job-b.result) && !contains(['failure','cancelled'], needs.job-c.result)
     steps:
       - name: Job A - Runs only if B and C succeeded or skipped
         run: echo "Running job A"

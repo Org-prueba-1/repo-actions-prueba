@@ -12,7 +12,7 @@ jobs:
 
   job-c:
     runs-on: ubuntu-latest
-    if: false
+    #if: false
     steps:
       - name: Job C - Example
         run: echo "Running job C"

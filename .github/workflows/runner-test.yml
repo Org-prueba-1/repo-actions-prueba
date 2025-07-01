@@ -7,9 +7,9 @@ jobs:
   job-b:
     runs-on: ubuntu-latest
     steps:
-      - name: Job B - Example
-        run: echo "Running job B"
-
+      - name: Wait for 2 minutes
+        run: sleep 120
+        
   job-c:
     runs-on: ubuntu-latest
     #if: false

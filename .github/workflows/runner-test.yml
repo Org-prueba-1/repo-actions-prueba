@@ -15,7 +15,7 @@ jobs:
     #if: false
     steps:
       - name: Job C - Example
-        run: echo "Running job C"
+        uses: actions/checkout@v4
 
   job-a:
     needs: [job-b, job-c]
